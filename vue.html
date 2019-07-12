@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <meta charset="UTF-8">
+        <!--<title>0 Hello World</title>-->
+    </head>
+    <body>
+
+        <div id="app" >
+            {{ content }}
+            <!--使用大括號來標記綁定物件的key值-->
+        </div>
+        
+        <div id="new" v-bind:title="nowtime" v-on:click="getTime"               v-if="status">
+            {{ content }}
+        </div>
+        <div id="ifelse" >
+            <!--<span v-if="person == 'A'">我是小明</span>-->
+            <span v-else-if="person == 'B'">我是小華</span>
+            <span v-else>我是神Q</span>
+        </div>
+        
+        <div id="ifelse1" >
+            <input v-if="inputstatus" placeholder="輸入姓名" key="username">
+            <input v-else="inputstatus" placeholder="輸入mail" key="useremail">
+            <input type="button" value="切換輸入"           @click="changeStatus">
+        </div>
+        
+        <div id="for">
+          <div v-for="list in lists">
+            {{list.item}}
+          </div>
+        </div>
+       <script>
+       	new Vue({
+                el:'#app', //el表示要去綁DOM的id
+                data:{//data裡面其實表示一個物件，所以也可以用下面的寫法
+               		content:'Hello World',
+                }
+        });
+ 
+let mymethod ={
+      getTime: ()=>{
+        console.log(String(new Date()))
+      },
+      changeStatus:()=>{
+    		mydata.inputstatus ? mydata.inputstatus = false : mydata.inputstatus = true
+        //若等於true則會跑前者，反之
+      },
+}
+let mydata = {
+	content:'hello',
+  nowtime:'目前是' + String(new Date()),
+ 	status: false,
+  person:'B',
+  inputstatus:true,
+  lists:[
+  	//陣列中擁有多個相同key的物件
+        {item:'學Vue.js'},
+        {item:'學React'},
+        {item:'學Angular2'},
+  ]
+}
+
+new Vue({
+						el:'#for',
+            data:mydata,
+})
+
+new Vue({
+						el:'#ifelse1',
+            data:mydata,
+            methods:mymethod,
+})
+
+new Vue({
+						el:'#ifelse',
+                data:mydata,
+})
+
+new Vue({
+                el:'#new', 
+                data:mydata,
+                methods: mymethod,
+        }
+);
+       </script>
+    </body>
+</html>
